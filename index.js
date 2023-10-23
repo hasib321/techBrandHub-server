@@ -27,12 +27,14 @@ async function run() {
     const productCollection = client.db("productDB").collection("products");
     const userCollection = client.db("productDB").collection("user");
 
+    //for get all products
     app.get("/products", async (req, res) => {
       const cursor = productCollection.find();
       const result = await cursor.toArray();
       res.send(result);
     });
 
+    //for get specific brand Name
     app.get("/products/:brandName", async (req, res) => {
       const cursor = productCollection.find({
         brandName: req.params.brandName,
@@ -40,6 +42,8 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+
+    //for get specific brand Name's id
 
     app.get("/products/:brandName/:id", async (req, res) => {
       const id = req.params.id;
@@ -49,6 +53,7 @@ async function run() {
       res.send(result);
     });
 
+    //for update products
     app.get("/products/updateProduct/:id", async (req, res) => {
       const id = req.params.id;
       const brand = req.params.brandName;
@@ -80,6 +85,7 @@ async function run() {
       res.send(result);
     });
 
+    //for posting products
     app.post("/products", async (req, res) => {
       const newProduct = req.body;
       console.log(newProduct);
